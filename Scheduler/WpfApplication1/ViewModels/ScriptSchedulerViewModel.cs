@@ -5,7 +5,7 @@ using WpfApplication1.BL;
 
 namespace WpfApplication1.ViewModels
 {
-    class ScriptSchedulerViewModel : ModelBase
+    public class ScriptSchedulerViewModel : ModelBase
     {
         public ScriptSchedulerViewModel()
         {

@@ -3,16 +3,48 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchemaEditor", "SchemaEditor.csproj", "{50526FCB-A9C0-48E0-9CBC-BD026CDB99D6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mapper", "..\Mapper\Mapper.csproj", "{799B0F01-CE10-4FBE-A310-9CF7FCCBC378}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "scheduler", "C:\Users\ADNAN_cp\Documents\Visual Studio 2010\Projects\Scheduler\WpfApplication1\scheduler.csproj", "{EDFED20C-4688-4474-A0A5-CE27DC45E0A6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Debug|x86 = Debug|x86
 		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{50526FCB-A9C0-48E0-9CBC-BD026CDB99D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{50526FCB-A9C0-48E0-9CBC-BD026CDB99D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50526FCB-A9C0-48E0-9CBC-BD026CDB99D6}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{50526FCB-A9C0-48E0-9CBC-BD026CDB99D6}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{50526FCB-A9C0-48E0-9CBC-BD026CDB99D6}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{50526FCB-A9C0-48E0-9CBC-BD026CDB99D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{50526FCB-A9C0-48E0-9CBC-BD026CDB99D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50526FCB-A9C0-48E0-9CBC-BD026CDB99D6}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{50526FCB-A9C0-48E0-9CBC-BD026CDB99D6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{50526FCB-A9C0-48E0-9CBC-BD026CDB99D6}.Release|x86.ActiveCfg = Release|Any CPU
+		{799B0F01-CE10-4FBE-A310-9CF7FCCBC378}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{799B0F01-CE10-4FBE-A310-9CF7FCCBC378}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{799B0F01-CE10-4FBE-A310-9CF7FCCBC378}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{799B0F01-CE10-4FBE-A310-9CF7FCCBC378}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{799B0F01-CE10-4FBE-A310-9CF7FCCBC378}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{799B0F01-CE10-4FBE-A310-9CF7FCCBC378}.Release|Any CPU.Build.0 = Release|Any CPU
+		{799B0F01-CE10-4FBE-A310-9CF7FCCBC378}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{799B0F01-CE10-4FBE-A310-9CF7FCCBC378}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{799B0F01-CE10-4FBE-A310-9CF7FCCBC378}.Release|x86.ActiveCfg = Release|Any CPU
+		{EDFED20C-4688-4474-A0A5-CE27DC45E0A6}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{EDFED20C-4688-4474-A0A5-CE27DC45E0A6}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{EDFED20C-4688-4474-A0A5-CE27DC45E0A6}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{EDFED20C-4688-4474-A0A5-CE27DC45E0A6}.Debug|x86.ActiveCfg = Debug|x86
+		{EDFED20C-4688-4474-A0A5-CE27DC45E0A6}.Debug|x86.Build.0 = Debug|x86
+		{EDFED20C-4688-4474-A0A5-CE27DC45E0A6}.Release|Any CPU.ActiveCfg = Release|x86
+		{EDFED20C-4688-4474-A0A5-CE27DC45E0A6}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{EDFED20C-4688-4474-A0A5-CE27DC45E0A6}.Release|Mixed Platforms.Build.0 = Release|x86
+		{EDFED20C-4688-4474-A0A5-CE27DC45E0A6}.Release|x86.ActiveCfg = Release|x86
+		{EDFED20C-4688-4474-A0A5-CE27DC45E0A6}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

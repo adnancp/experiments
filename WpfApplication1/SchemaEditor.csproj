@@ -100,15 +100,15 @@
     <Compile Include="Wizard\ImportWizard.xaml.cs">
       <DependentUpon>ImportWizard.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Utils\ObservableCollectionDecorator.cs" />
-    <Compile Include="Utils\ObservableConverter.cs" />
-    <Compile Include="Utils\CsvReader.cs" />
-    <Compile Include="Utils\CsvToXmlConverter.cs" />
-    <Compile Include="Utils\ObservableDecoratorExtensions.cs" />
-    <Compile Include="Utils\ObservableDecorator.cs" />
-    <Compile Include="Utils\TypeExtensions.cs" />
-    <Compile Include="Utils\UnionConverter.cs" />
-    <Compile Include="Utils\XsdInferrer.cs" />
+    <Compile Include="Properties\Utils\ObservableCollectionDecorator.cs" />
+    <Compile Include="Properties\Utils\ObservableConverter.cs" />
+    <Compile Include="Properties\Utils\CsvReader.cs" />
+    <Compile Include="Properties\Utils\CsvToXmlConverter.cs" />
+    <Compile Include="Properties\Utils\ObservableDecoratorExtensions.cs" />
+    <Compile Include="Properties\Utils\ObservableDecorator.cs" />
+    <Compile Include="Properties\Utils\TypeExtensions.cs" />
+    <Compile Include="Properties\Utils\UnionConverter.cs" />
+    <Compile Include="Properties\Utils\XsdInferrer.cs" />
     <Compile Include="Wizard\Database\DatabaseImportType.xaml.cs">
       <DependentUpon>DatabaseImportType.xaml</DependentUpon>
     </Compile>

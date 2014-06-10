@@ -6,7 +6,7 @@
     <Grid>
         <Grid.Resources>
             <BooleanToVisibilityConverter x:Key="BoolToVis" />
-            
+
         </Grid.Resources>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -51,8 +51,8 @@
                         </Grid.RowDefinitions>
                         <RadioButton Content="One time"  Grid.Row="0" Margin="5" GroupName="taskschedule" IsChecked="{Binding OneTimeChecked}"  />
                         <RadioButton Content="Daily" Grid.Row="1" Margin="5" GroupName="taskschedule" IsChecked="{Binding DailyChecked}"/>
-                        <RadioButton Content="Weekly" Grid.Row="2" Margin="5" GroupName="taskschedule" IsChecked="{Binding WeeklyCheked}"/>
-                        
+                        <RadioButton Content="Weekly" Grid.Row="2" Margin="5" GroupName="taskschedule" IsChecked="{Binding WeeklyCheked}" />
+
                     </Grid>
                     <Grid Grid.Column="1">
 
@@ -77,7 +77,7 @@
                                 <Grid>
                                     <Label Content="Repeate Every " Margin="5" />
                                     <TextBox Margin="96,5,301,5" Width="50" Grid.Column="1" Height="auto" Text="{Binding DailyCheckedValue}"/>
-                                    <Label Content="Days "  Grid.Column="2" Margin="5" Width="55" />   
+                                    <Label Content="Days "  Grid.Column="2" Margin="5" Width="55" />
                                 </Grid>
                             </StackPanel>
                         </GroupBox>
@@ -92,10 +92,10 @@
                                         <ColumnDefinition Width="191*" />
                                     </Grid.ColumnDefinitions>
                                     <Grid.RowDefinitions>
-                                    <RowDefinition Height="auto"/>
-                                    <RowDefinition Height="auto"/>
-                                    <RowDefinition Height="auto"/>
-                                   
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+
                                     </Grid.RowDefinitions>
                                     <Label Content="Every " Margin="5,5,26,5" Width="auto" />
                                     <TextBox Margin="0,5" Width="50" Grid.Column="1" Height="26" Text="{Binding WeeklyCheckedValue}"/>
@@ -112,7 +112,7 @@
                             </StackPanel>
                         </GroupBox>
                     </Grid>
-                    
+
 
 
                 </Grid>
@@ -137,7 +137,7 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <CheckBox IsChecked="{ Binding DelayTaskForUpTo}"  Content="Delay task for up to (random delay)"   Grid.Column="0" Width="auto"  Margin="5"  />
-                        <ComboBox IsEnabled="{ Binding DelayTaskForUpTo}" SelectedValue="{Binding Path=DelayTaskForUpToValue}" Grid.Column="1"  Height="20" Width="100"  Margin="5" HorizontalAlignment="Left" >
+                        <ComboBox  IsEditable="True" IsEnabled="{ Binding DelayTaskForUpTo}" SelectedValue="{Binding DelayTaskForUpToValue}"   Grid.Column="1"  Height="20" Width="100"  Margin="5" HorizontalAlignment="Left" >
                             <ComboBoxItem Content="30 Seconds"/>
                             <ComboBoxItem Content="1 Minute"/>
                             <ComboBoxItem Content="30 Minutes"/>
@@ -150,22 +150,24 @@
                     </Grid>
                     <Grid Grid.Row="1">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
+                            <ColumnDefinition Width="156*"/>
+                            <ColumnDefinition Width="156*"/>
+                            <ColumnDefinition Width="43*"/>
+                            <ColumnDefinition Width="20*"/>
+                            <ColumnDefinition Width="93*"/>
+                            <ColumnDefinition Width="156*"/>
                         </Grid.ColumnDefinitions>
-                        <CheckBox IsChecked="{Binding RepateTaskEvery}"  Content="Repate task every" Grid.Column="0" Margin="5" VerticalAlignment="Center"  />
-                        <ComboBox IsEditable="True" IsEnabled="{Binding RepateTaskEvery}"  SelectedValue="{Binding Path=RepateTaskEveryValue}" Grid.Column="1" Margin="5" Height="20" Width="100" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <CheckBox IsChecked="{Binding RepateTaskEvery}"  Content="Repate task every" Grid.Column="0" Margin="5,10" VerticalAlignment="Center"  />
+                        <ComboBox IsEditable="True" IsEnabled="{Binding RepateTaskEvery}"  SelectedValue="{Binding Path=RepateTaskEveryValue}" Grid.Column="1" Margin="5,8,0,8" Height="20" Width="100" HorizontalAlignment="Left" VerticalAlignment="Center">
                             <ComboBoxItem Content="5 Minutes"/>
                             <ComboBoxItem Content="10 Minutes"/>
                             <ComboBoxItem Content="15 Minutes" />
                             <ComboBoxItem  Content="30 Minutes"/>
                             <ComboBoxItem  Content="1 Hour"/>
-                           
+
                         </ComboBox>
-                        <Label  IsEnabled="{Binding RepateTaskEvery}" Content="for duration of"   Grid.Column="2" Margin="5"  HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                        <ComboBox IsEnabled="{Binding RepateTaskEvery}"  SelectedValue="{ Binding Path=ForDurationOf}" Grid.Column="3" Margin="5" Height="20" Width="100" HorizontalAlignment="Left" VerticalAlignment="Center"  >
+                        <Label  IsEnabled="{Binding RepateTaskEvery}" Content="for duration of"   Grid.Column="2" Margin="5,5,0,5"  HorizontalAlignment="Left" VerticalAlignment="Center" Grid.ColumnSpan="3"/>
+                        <ComboBox  IsEditable="True" IsEnabled="{Binding RepateTaskEvery}"  SelectedValue="{ Binding Path=ForDurationOf}" Grid.Column="5" Margin="5,8,0,8" Height="20" Width="100" HorizontalAlignment="Left" VerticalAlignment="Center"  >
                             <ComboBoxItem Content="Immidately"/>
                             <ComboBoxItem Content="15 Minutes" />
                             <ComboBoxItem  Content="30 Minutes"/>
@@ -181,7 +183,7 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <CheckBox IsChecked="{Binding StopTaskIfItRunsLongerThanEnabled}" Content="Stop task if it runs longer than" Grid.Column="0" Margin="5" VerticalAlignment="Center" />
-                        <ComboBox  IsEnabled="{Binding StopTaskIfItRunsLongerThanEnabled}"  SelectedValue="{Binding Path=StopTaskIfItRunsLongerThanvalue}"  Grid.Column="1" Margin="5" Height="20" Width="100" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <ComboBox  IsEditable="True" IsEnabled="{Binding StopTaskIfItRunsLongerThanEnabled}"  SelectedValue="{Binding Path=StopTaskIfItRunsLongerThanvalue}"  Grid.Column="1" Margin="5" Height="20" Width="100" HorizontalAlignment="Left" VerticalAlignment="Center">
                             <ComboBoxItem  Content="30 Minutes"/>
                             <ComboBoxItem  Content="1 Hour"/>
                             <ComboBoxItem Content="2 Hours"/>
@@ -200,10 +202,10 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <CheckBox  Content="Expire" Grid.Column="0" Margin="5" VerticalAlignment="Center" IsChecked="{ Binding Expire}" />
-                        <DatePicker IsEnabled="{Binding Expire}" Grid.Column="1"  Margin="5" Height="25" Width="100" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                        <xctk:TimePicker   IsEnabled="{Binding Expire}" Grid.Column="2"  Margin="5" Height="25" Width="100" HorizontalAlignment="Left" VerticalAlignment="Center" Format="LongTime"/>
+                        <DatePicker IsEnabled="{Binding Expire}" Grid.Column="1"  Margin="5" Height="25" Width="100" HorizontalAlignment="Left" VerticalAlignment="Center" SelectedDate="{Binding ExpireTaskStartDate}"/>
+                        <xctk:TimePicker   IsEnabled="{Binding Expire}" Grid.Column="2"  Margin="5" Height="25" Width="100" HorizontalAlignment="Left" VerticalAlignment="Center" Format="LongTime" Value="{Binding ExpireTaskStartTime}"/>
                     </Grid>
-                    <CheckBox Grid.Row="5" Content="Enabled" Margin="5"/>
+                    <CheckBox IsChecked="{Binding TaskEnabled}" Grid.Row="5" Content="Enabled" Margin="5"/>
                 </Grid>
             </StackPanel>
         </GroupBox>

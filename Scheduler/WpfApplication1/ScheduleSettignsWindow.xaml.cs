@@ -6,7 +6,7 @@ using System.Linq;
 using System.Collections.Generic;
 using WpfApplication1.ViewModels;
 using WpfApplication1.BL;
-
+using System.IO;
 namespace WpfApplication1
 {
     /// <summary>
@@ -26,25 +26,13 @@ namespace WpfApplication1
             var context = new ScriptSchedulerViewModel();
 
             context.ScriptSchedule = scriptSchedule ?? new ScriptSchedule();
-
-            string connectionString = "Server=85.92.146.196;port=5432;Database=bodyview3;UserID=postgres;Password=Banek12";
-            string selectQuery = "select scriptid ,scriptname from script";
-            using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
-            {
-                connection.Open();
-                NpgsqlCommand commandSelect = new NpgsqlCommand(selectQuery, connection);
-
-                // Execute the query and obtain a result set
-                NpgsqlDataReader dr = commandSelect.ExecuteReader();
-
-                // Output rows
-                while (dr.Read())
-                {
-                    context.Scripts.Add(new ScriptItem((int)dr["scriptid"], dr["scriptname"].ToString()));
-                }
-            }
+            
+            ScheduleManager.AddScriptsToModel(context);
+           
             DataContext = context;
         }
+
+       
 
         private void OK_Click(object sender, RoutedEventArgs e)
         {
@@ -53,38 +41,35 @@ namespace WpfApplication1
             Close();
         }
 
-        private void updatetasskwindow()
+      
+        public  void Synchronize(ScriptSchedule scriptSchedule)
         {
-            var context = DataContext.As<ScriptSchedulerViewModel>().ScriptSchedule;
-            ScheduleManager.UpdateScriptSchedule(context);
-        }
+                // Connect to the computer "REMOTE" using credentials
+               // TaskService ts = new TaskService("REMOTE", "myusername", "MYDOMAIN", "mypassword");
 
-
-        private void SaveSchedulerToDatabase()
-        {
-            var context = DataContext.As<ScriptSchedulerViewModel>().ScriptSchedule;
+                using (TaskService ts = new TaskService())
+                {
+                    CreateNewTask(ts, scriptSchedule);
+                }
             
         }
-
-        private void Synchronize()
+        private void Synchronizeall()
         {
             var scriptsschedules = ScheduleManager.GetScriptschedules();
             foreach (var schedule in scriptsschedules)
             {
-
-               
                 // Connect to the computer "REMOTE" using credentials
                 // TaskService ts = new TaskService("REMOTE", "myusername", "MYDOMAIN", "mypassword");
 
                 using (TaskService ts = new TaskService())
                 {
-                    Task rt = ts.GetTask(schedule.ScheduleName);
-                    CreateNewTask(ts, schedule.Schedule);
+                  
+                    CreateNewTask(ts, schedule);
                 }
             }
         }
 
-        private void CreateNewTask(TaskService ts, Schedule schedulerData)
+        private void CreateNewTask(TaskService ts, ScriptSchedule scriptSchedule)
         {
             Microsoft.Win32.TaskScheduler.Trigger trigger = null;
 
@@ -93,51 +78,63 @@ namespace WpfApplication1
             td.RegistrationInfo.Description = "does something";
 
             // create a trigger 
-            if (schedulerData.OneTimeChecked)
+            if (scriptSchedule.Schedule.OneTimeChecked)
             {
                 trigger = td.Triggers.Add(new TimeTrigger
                 {
-                    RandomDelay = schedulerData.DelayTaskForUpToValue
+                    RandomDelay = scriptSchedule.Schedule.DelayTaskForUpToValue
                 });
             }
 
-            else if (schedulerData.DailyChecked)
+            else if (scriptSchedule.Schedule.DailyChecked)
             {
                 trigger = td.Triggers.Add(new DailyTrigger
                 {
-                    DaysInterval = schedulerData.DailyCheckedValue,
-                    RandomDelay = schedulerData.DelayTaskForUpToValue
+                    DaysInterval = scriptSchedule.Schedule.DailyCheckedValue,
+                    RandomDelay = scriptSchedule.Schedule.DelayTaskForUpToValue
                 });
             }
-            else if (schedulerData.WeeklyCheked)
+            else if (scriptSchedule.Schedule.WeeklyCheked)
             {
                 trigger = td.Triggers.Add(new WeeklyTrigger
                 {
-                    WeeksInterval = schedulerData.WeeklySettings.WeeklyChekedValue,
-                    RandomDelay = schedulerData.DelayTaskForUpToValue,
-                    DaysOfWeek = (DaysOfTheWeek)((schedulerData.WeeklySettings.Monday ? (int)DaysOfTheWeek.Monday : 0)
-                                                | (schedulerData.WeeklySettings.Tuesday ? (int)DaysOfTheWeek.Tuesday : 0)
-                                                | (schedulerData.WeeklySettings.Wednesday ? (int)DaysOfTheWeek.Wednesday : 0)
-                                                | (schedulerData.WeeklySettings.Thursday ? (int)DaysOfTheWeek.Thursday : 0)
-                                                | (schedulerData.WeeklySettings.Friday ? (int)DaysOfTheWeek.Friday : 0)
-                                                | (schedulerData.WeeklySettings.Saturday ? (int)DaysOfTheWeek.Saturday : 0)
-                                                | (schedulerData.WeeklySettings.Sunday ? (int)DaysOfTheWeek.Sunday : 0))
+                    WeeksInterval = scriptSchedule.Schedule.WeeklySettings.WeeklyChekedValue,
+                    RandomDelay = scriptSchedule.Schedule.DelayTaskForUpToValue,
+                    DaysOfWeek = (DaysOfTheWeek)((scriptSchedule.Schedule.WeeklySettings.Monday ? (int)DaysOfTheWeek.Monday : 0)
+                                                | (scriptSchedule.Schedule.WeeklySettings.Tuesday ? (int)DaysOfTheWeek.Tuesday : 0)
+                                                | (scriptSchedule.Schedule.WeeklySettings.Wednesday ? (int)DaysOfTheWeek.Wednesday : 0)
+                                                | (scriptSchedule.Schedule.WeeklySettings.Thursday ? (int)DaysOfTheWeek.Thursday : 0)
+                                                | (scriptSchedule.Schedule.WeeklySettings.Friday ? (int)DaysOfTheWeek.Friday : 0)
+                                                | (scriptSchedule.Schedule.WeeklySettings.Saturday ? (int)DaysOfTheWeek.Saturday : 0)
+                                                | (scriptSchedule.Schedule.WeeklySettings.Sunday ? (int)DaysOfTheWeek.Sunday : 0))
                 });
 
             }
 
-            trigger.StartBoundary = new DateTime(schedulerData.TaskStartDate.Year, schedulerData.TaskStartDate.Month, schedulerData.TaskStartDate.Day,
-                                                schedulerData.TaskStartTime.Hour, schedulerData.TaskStartTime.Minute, schedulerData.TaskStartTime.Second);
-            trigger.Repetition.Interval = schedulerData.RepateTaskEveryValue;
-            trigger.Repetition.Duration = schedulerData.ForDurationOf;
-            trigger.ExecutionTimeLimit = schedulerData.StopTaskIfItRunsLongerThanvalue;
-            trigger.EndBoundary = new DateTime(schedulerData.ExpireTaskStartDate.Year, schedulerData.ExpireTaskStartDate.Month, schedulerData.ExpireTaskStartDate.Day,
-                                               schedulerData.ExpireTaskStartDate.Hour, schedulerData.ExpireTaskStartDate.Minute, schedulerData.TaskStartTime.Second);
-
-            // register the task in the root folder
+            trigger.StartBoundary = new DateTime(scriptSchedule.Schedule.TaskStartDate.Year, scriptSchedule.Schedule.TaskStartDate.Month, scriptSchedule.Schedule.TaskStartDate.Day,
+                                                scriptSchedule.Schedule.TaskStartTime.Hour, scriptSchedule.Schedule.TaskStartTime.Minute, scriptSchedule.Schedule.TaskStartTime.Second);
+            trigger.Repetition.Interval = scriptSchedule.Schedule.RepateTaskEveryValue;
+            trigger.Repetition.Duration = scriptSchedule.Schedule.ForDurationOf;
+            trigger.ExecutionTimeLimit = scriptSchedule.Schedule.StopTaskIfItRunsLongerThanvalue;
+            trigger.EndBoundary = new DateTime(scriptSchedule.Schedule.ExpireTaskStartDate.Year, scriptSchedule.Schedule.ExpireTaskStartDate.Month, scriptSchedule.Schedule.ExpireTaskStartDate.Day,
+                                               scriptSchedule.Schedule.ExpireTaskStartDate.Hour, scriptSchedule.Schedule.ExpireTaskStartDate.Minute, scriptSchedule.Schedule.TaskStartTime.Second);
+            trigger.Enabled = scriptSchedule.Schedule.TaskEnabled;
+            // specify the action 
+            // TODO change the name and the implementation to according to scriptname.
+            td.Settings.Enabled = scriptSchedule.Schedule.TaskEnabled;
             td.Actions.Add(new ExecAction("notepad.exe", "c:\\test.log", null));
-            //ts.RootFolder.CreateFolder
-            //ts.GetFolder("Navitas").GetFolder("ScriptModule").RegisterTaskDefinition(schedulerData.TaskName, td);
+            var rootpath = ts.RootFolder.Path;
+            if (!Directory.Exists(rootpath + "\\Naiton"))
+            {
+                ts.RootFolder.CreateFolder("Naiton");
+                // register the task in the root folder
+                ts.GetFolder("Naiton").RegisterTaskDefinition(scriptSchedule.ScheduleName, td);
+            }
+            else
+            {
+                ts.GetFolder("Naiton").RegisterTaskDefinition(scriptSchedule.ScheduleName, td);
+            }
+
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)

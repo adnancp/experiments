@@ -73,7 +73,8 @@ namespace WpfApplication1
 
         private void Synchronize(object sender, ExecutedRoutedEventArgs e)
         {
-
+            ScheduleSettignsWindow schedule = new ScheduleSettignsWindow();
+            schedule.Synchronize(Context.CurrentScriptSchedule);
         }
     }
 }
