@@ -6,7 +6,7 @@ using System.Text;
 
 namespace WpfApplication1.BL
 {
-    public class ModelBase : INotifyPropertyChanged
+    public class ModelBase : INotifyPropertyChanged, ICloneable
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -14,6 +14,11 @@ namespace WpfApplication1.BL
         {
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(name));
+        }
+
+        public object Clone()
+        {
+            return MemberwiseClone();
         }
     }
 }

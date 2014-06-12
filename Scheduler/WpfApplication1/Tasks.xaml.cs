@@ -24,6 +24,8 @@ namespace WpfApplication1
     {
         public TasksWindow()
         {
+     
+
             InitializeComponent();
             var context = new SchedulesViewModel();
             foreach (var s in ScheduleManager.GetScriptschedules())
@@ -55,9 +57,10 @@ namespace WpfApplication1
 
         private void OpenSchedule(object sender, ExecutedRoutedEventArgs e)
         {
-            if (new ScheduleSettignsWindow(Context.CurrentScriptSchedule).ShowDialog().GetValueOrDefault())
+            var scriptSchedule = (ScriptSchedule)Context.CurrentScriptSchedule.Clone();
+            if (new ScheduleSettignsWindow(scriptSchedule).ShowDialog().GetValueOrDefault())
             {
-                Context.UpdateScriptSchedule(Context.CurrentScriptSchedule);
+                Context.ReplaceCurrentScriptSchedule(scriptSchedule);
             }
         }
 

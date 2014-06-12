@@ -21,22 +21,20 @@ namespace WpfApplication1
 
         public ScheduleSettignsWindow(ScriptSchedule scriptSchedule)
         {
-            InitializeComponent();
-
             var context = new ScriptSchedulerViewModel();
+            ScheduleManager.AddScriptsToModel(context);
 
             context.ScriptSchedule = scriptSchedule ?? new ScriptSchedule();
-            
-            ScheduleManager.AddScriptsToModel(context);
-           
+
             DataContext = context;
+
+            InitializeComponent();
         }
 
        
 
         private void OK_Click(object sender, RoutedEventArgs e)
         {
-            var context = DataContext.As<ScriptSchedulerViewModel>();
             DialogResult = true;
             Close();
         }
@@ -49,6 +47,7 @@ namespace WpfApplication1
 
                 using (TaskService ts = new TaskService())
                 {
+                 
                     CreateNewTask(ts, scriptSchedule);
                 }
             
@@ -76,7 +75,7 @@ namespace WpfApplication1
             // create a new task definition and assign properties
             TaskDefinition td = ts.NewTask();
             td.RegistrationInfo.Description = "does something";
-
+            
             // create a trigger 
             if (scriptSchedule.Schedule.OneTimeChecked)
             {
@@ -117,14 +116,15 @@ namespace WpfApplication1
             trigger.Repetition.Duration = scriptSchedule.Schedule.ForDurationOf;
             trigger.ExecutionTimeLimit = scriptSchedule.Schedule.StopTaskIfItRunsLongerThanvalue;
             trigger.EndBoundary = new DateTime(scriptSchedule.Schedule.ExpireTaskStartDate.Year, scriptSchedule.Schedule.ExpireTaskStartDate.Month, scriptSchedule.Schedule.ExpireTaskStartDate.Day,
-                                               scriptSchedule.Schedule.ExpireTaskStartDate.Hour, scriptSchedule.Schedule.ExpireTaskStartDate.Minute, scriptSchedule.Schedule.TaskStartTime.Second);
+                                               scriptSchedule.Schedule.ExpireTaskStartTime.Hour, scriptSchedule.Schedule.ExpireTaskStartTime.Minute, scriptSchedule.Schedule.ExpireTaskStartTime.Second);
             trigger.Enabled = scriptSchedule.Schedule.TaskEnabled;
             // specify the action 
-            // TODO change the name and the implementation to according to scriptname.
+            // TODO change the name and the implementation according to scriptname.
             td.Settings.Enabled = scriptSchedule.Schedule.TaskEnabled;
             td.Actions.Add(new ExecAction("notepad.exe", "c:\\test.log", null));
+
             var rootpath = ts.RootFolder.Path;
-            if (!Directory.Exists(rootpath + "\\Naiton"))
+            if (!ts.RootFolder.SubFolders.Any(i => i.Name == "Naiton"))
             {
                 ts.RootFolder.CreateFolder("Naiton");
                 // register the task in the root folder

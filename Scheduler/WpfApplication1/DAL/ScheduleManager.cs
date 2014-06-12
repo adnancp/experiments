@@ -34,6 +34,7 @@ namespace WpfApplication1
                 {
                     connection.Open();
                     commandInsert.ExecuteNonQuery();
+                    connection.Close();
 
                 }
                 catch (Exception ex)
@@ -63,6 +64,7 @@ namespace WpfApplication1
                 {
                     connection.Open();
                     commandUpdate.ExecuteNonQuery();
+                    connection.Close();
                 }
                 catch (Exception ex)
                 {
@@ -76,7 +78,7 @@ namespace WpfApplication1
         {
             // TODO: Delete existing script schedule
 
-            string deleteQuery = "delete from scriptsschedule where scriptsscheduleid  = @scriptsscheduleid";
+            string deleteQuery = "delete from scriptsschedule where scriptsscheduleid = @scriptsscheduleid";
             using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
             {
 
@@ -86,7 +88,7 @@ namespace WpfApplication1
                 {
                     connection.Open();
                     commandDelete.ExecuteNonQuery();
-
+                    connection.Close();
                 }
                 catch (Exception ex)
                 {

@@ -42,9 +42,13 @@ namespace WpfApplication1.ViewModels
             ScriptSchedules.Remove(scriptSchedule);
         }
 
-        public void UpdateScriptSchedule(ScriptSchedule scriptSchedule)
+        public void ReplaceCurrentScriptSchedule(ScriptSchedule scriptSchedule)
         {
             ScheduleManager.UpdateScriptSchedule(scriptSchedule);
+
+            CurrentScriptSchedule.ScheduleName = scriptSchedule.ScheduleName;
+            CurrentScriptSchedule.ScriptId = scriptSchedule.ScriptId;
+            CurrentScriptSchedule.Schedule = scriptSchedule.Schedule;
         }
     }
 }

@@ -66,3 +66,5 @@ F:\experiments\Scheduler\WpfApplication1\obj\x86\Debug\WpfApplication1_MarkupCom
 F:\experiments\Scheduler\WpfApplication1\obj\x86\Debug\WpfApplication1.g.resources
 F:\experiments\Scheduler\WpfApplication1\obj\x86\Debug\WpfApplication1.Properties.Resources.resources
 F:\experiments\Scheduler\WpfApplication1\obj\x86\Debug\scheduler.csproj.GenerateResource.Cache
+F:\experiments\Scheduler\WpfApplication1\obj\x86\Debug\GeneratedInternalTypeHelper.g.cs
+F:\experiments\Scheduler\WpfApplication1\obj\x86\Debug\WpfApplication1_MarkupCompile.lref
