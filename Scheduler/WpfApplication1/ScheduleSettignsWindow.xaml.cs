@@ -111,11 +111,13 @@ namespace WpfApplication1
             }
 
             trigger.StartBoundary = new DateTime(scriptSchedule.Schedule.TaskStartDate.Year, scriptSchedule.Schedule.TaskStartDate.Month, scriptSchedule.Schedule.TaskStartDate.Day,
-                                                scriptSchedule.Schedule.TaskStartTime.Hour, scriptSchedule.Schedule.TaskStartTime.Minute, scriptSchedule.Schedule.TaskStartTime.Second);
+                                               scriptSchedule.Schedule.TaskStartTime.Hour, scriptSchedule.Schedule.TaskStartTime.Minute, scriptSchedule.Schedule.TaskStartTime.Second);
+                //
             trigger.Repetition.Interval = scriptSchedule.Schedule.RepateTaskEveryValue;
             trigger.Repetition.Duration = scriptSchedule.Schedule.ForDurationOf;
             trigger.ExecutionTimeLimit = scriptSchedule.Schedule.StopTaskIfItRunsLongerThanvalue;
-            trigger.EndBoundary = new DateTime(scriptSchedule.Schedule.ExpireTaskStartDate.Year, scriptSchedule.Schedule.ExpireTaskStartDate.Month, scriptSchedule.Schedule.ExpireTaskStartDate.Day,
+            trigger.EndBoundary =
+                new DateTime(scriptSchedule.Schedule.ExpireTaskStartDate.Year, scriptSchedule.Schedule.ExpireTaskStartDate.Month, scriptSchedule.Schedule.ExpireTaskStartDate.Day,
                                                scriptSchedule.Schedule.ExpireTaskStartTime.Hour, scriptSchedule.Schedule.ExpireTaskStartTime.Minute, scriptSchedule.Schedule.ExpireTaskStartTime.Second);
             trigger.Enabled = scriptSchedule.Schedule.TaskEnabled;
             // specify the action 
@@ -132,7 +134,9 @@ namespace WpfApplication1
             }
             else
             {
-                ts.GetFolder("Naiton").RegisterTaskDefinition(scriptSchedule.ScheduleName, td);
+               ts.GetFolder("Naiton").RegisterTaskDefinition(scriptSchedule.ScheduleName, td);
+                
+               
             }
 
         }
